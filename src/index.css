@@ -4,10 +4,13 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-primary-0: #033ab1;
+  --color-primary-0: #43E8C9;
   --color-secondary-0: oklch(0.72 0.11 178);
 
-  --color-bg-primary-0: #e2e7eb;
+  --color-text-primary-0: #F6FEFC;
+
+  --color-bg-primary-0: #02120F;
+  --color-bg-secondary-0: #455451;
 
   --font-primary: 'Libre Franklin', sans-serif;
 }

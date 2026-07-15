@@ -6,12 +6,12 @@ import { MobileBottomTabs } from "./components/mobile-layout";
 
 export default function Layout() {
   return (
-    <SidebarProvider defaultOpen={true}>
-      <div className="hidden lg:block">
+    <SidebarProvider defaultOpen={true} className="grid grid-cols-7">
+      <div className="hidden lg:block bg-bg-secondary-0 col-span-1">
         <AppSidebar />
       </div>
 
-      <div>
+      <div className="bg-bg-primary-0 col-span-6 min-h-screen">
         <Outlet />
       </div>
 
