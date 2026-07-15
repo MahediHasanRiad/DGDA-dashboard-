@@ -24,172 +24,154 @@ import {
   ChevronsUpDown,
   LogOut,
   Settings,
-  Building2Icon,
+  Users,
+  Layers,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
-
-
 
 const navItems = [
   { label: "Overview", icon: LayoutDashboard, href: "/" },
+  { label: "User", icon: Users, href: "/user" },
+  { label: "Package", icon: Layers, href: "/package" },
 ];
-
 
 export function AppSidebar() {
   const navigate = useNavigate();
+  const { setOpenMobile, state } = useSidebar();
+  const isCollapsed = state === "collapsed";
 
-  // customer all site list
-  const { setOpenMobile } = useSidebar();
-
-  // logout
   const logoutHandler = () => {
     localStorage.removeItem("access-token");
     navigate("/login");
   };
 
-
   return (
     <Sidebar
       collapsible="icon"
-      className="border-l border-gray-200 bg-bg-primary-0"
+      className="border-r border-slate-200 bg-slate-50/50"
     >
-      <SidebarSeparator />
-
-      {/* Nav items */}
-      <SidebarContent className="px-2 py-2 bg-white ">
+      {/* Navigation Content */}
+      <SidebarContent className="px-3 py-4 bg-white">
         <SidebarGroup className="p-0">
           <SidebarGroupContent>
-              <SidebarMenu className="gap-0.5">
-                {navItems.map(({ label, icon: Icon, href }) => (
-                  <SidebarMenuItem key={label} onClick={() => setOpenMobile(false)}>
-                      <SidebarMenuButton
-                      className="h-10 gap-3 rounded-md px-3 my-2 text-sm font-medium transition-colors hover:bg-white/80 hover:text-sidebar-accent-foreground data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground data-[active=true]:font-semibold"
+            <SidebarMenu className="gap-1">
+              {navItems.map(({ label, icon: Icon, href }) => (
+                <SidebarMenuItem key={label} onClick={() => setOpenMobile(false)}>
+                  <SidebarMenuButton
+                    className="h-10 w-full rounded-lg p-0 transition-all duration-200"
+                  >
+                    <NavLink
+                      to={href}
+                      className={({ isActive }) => `
+                        flex items-center w-full h-full gap-3 px-3 rounded-lg text-sm font-medium transition-all
+                        ${
+                          isActive
+                            ? "bg-slate-900 text-white shadow-sm font-semibold"
+                            : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                        }
+                      `}
                     >
-                      <NavLink to={href}>
-                        {({ isActive }) => (
-                          <div
-                            className={`
-                            flex items-center w-full gap-3 px-3 py-2 my-0.5
-                            border-l-4 rounded-r-md
-                            transition-all duration-200 ease-in-out select-none
-                            ${
-                              isActive
-                                ? "border-primary-0 rounded-md bg-white/80 shadow-sm pl-4"
-                                : "border-transparent hover:border-primary/40 hover:bg-white/70 hover:pl-4"
-                            }
-                          `}
-                          >
-                            <Icon
-                              className="h-4.5 w-4.5 shrink-0 text-current"
-                              strokeWidth={isActive ? 2 : 1.6}
-                            />
-                            <span className="text-[15px] / font-medium leading-none">
-                              {label}
-                            </span>
-                          </div>
-                        )}
-                      </NavLink>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-                <div className="flex items-center gap-3 mt-6 mb-2">
-                  <div className="h-px flex-1 bg-gray-200" />
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-gray-400">
-                    Legal Documents
-                  </span>
-                  <div className="h-px flex-1 bg-gray-200" />
-                </div>
+                      <Icon className="h-4.5 w-4.5 shrink-0" strokeWidth={2} />
+                      <span className="truncate">{label}</span>
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+
+              {/* Legal Section Divider */}
+              <div className="flex items-center gap-2 mt-6 mb-2 px-3 group-data-[collapsible=icon]:hidden">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block whitespace-nowrap">
+                  Management
+                </span>
+                <div className="h-px w-full bg-slate-100" />
+              </div>
+
+              {/* Legal Sidebar Item */}
+              <SidebarMenuItem onClick={() => setOpenMobile(false)}>
                 <SidebarMenuButton
-                  onClick={() => setOpenMobile(false)}
-                  // tooltip={label}
-                  className="h-10 gap-3 rounded-md px-3 my-2 text-sm font-medium transition-colors hover:bg-white/80 hover:text-sidebar-accent-foreground data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground data-[active=true]:font-semibold"
+                  className="h-10 w-full rounded-lg p-0 transition-all duration-200"
                 >
-                  <NavLink to={"/privacy-policy"}>
-                    {({ isActive }) => (
-                      <div
-                        className={`
-                            flex items-center w-full gap-3 px-3 py-2 my-0.5
-                            border-l-4 rounded-r-md
-                            transition-all duration-200 ease-in-out select-none
-                            ${
-                              isActive
-                                ? "border-primary-0 rounded-md bg-white/80 shadow-sm pl-4 rounded"
-                                : "border-transparent hover:border-primary/40 hover:bg-white/70 hover:pl-4"
-                            }
-                          `}
-                      >
-                        <ShieldCheck
-                          className="h-[18px] w-[18px] shrink-0 text-current"
-                          strokeWidth={isActive ? 2 : 1.6}
-                        />
-                        <span className="text-[15px] font-medium leading-none">
-                          Side Content
-                        </span>
-                      </div>
-                    )}
+                  <NavLink
+                    to="/privacy-policy"
+                    className={({ isActive }) => `
+                      flex items-center w-full h-full gap-3 px-3 rounded-lg text-sm font-medium transition-all
+                      ${
+                        isActive
+                          ? "bg-slate-900 text-white shadow-sm font-semibold"
+                          : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                      }
+                    `}
+                  >
+                    <ShieldCheck className="h-4.5 w-4.5 shrink-0" strokeWidth={2} />
+                    <span className="truncate">Legal Content</span>
                   </NavLink>
                 </SidebarMenuButton>
-              </SidebarMenu>
-           
+              </SidebarMenuItem>
+            </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
 
-      {/* Footer: user profile with dropdown */}
-      <SidebarFooter className="px-2 py-3 bg-white">
-        <SidebarSeparator className="mb-3" />
+      {/* Footer: Profile Action Section */}
+      <SidebarFooter className="p-3 bg-white border-t border-slate-100">
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <button className="flex w-full items-center gap-3 rounded-md px-2 py-2 text-left transition-colors hover:bg-sidebar-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-0">
-              <Avatar className="h-8 w-8 shrink-0">
+            <span className="flex w-full items-center gap-3 rounded-xl p-2 text-left transition-all hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-200 justify-center group-data-[collapsible=icon]:p-0">
+              <Avatar className="h-8 w-8 shrink-0 border border-slate-200 shadow-sm">
                 <AvatarImage src="/avatars/admin.jpg" alt="Super Admin" />
-                <AvatarFallback className="bg-primary/15 text-primary text-xs font-semibold">
+                <AvatarFallback className="bg-slate-900 text-white text-xs font-bold">
                   SA
                 </AvatarFallback>
               </Avatar>
-              <div className="flex min-w-0 flex-1 flex-col group-data-[collapsible=icon]:hidden">
-                <span className="truncate text-sm font-semibold leading-tight text-sidebar-foreground">
-                  name
-                </span>
-                <span className="truncate text-[11px] text-muted-foreground">
-                  email
-                </span>
-              </div>
-              <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 text-muted-foreground group-data-[collapsible=icon]:hidden" />
-            </button>
+              
+              {!isCollapsed && (
+                <>
+                  <div className="flex min-w-0 flex-1 flex-col">
+                    <span className="truncate text-sm font-semibold text-slate-800 leading-tight">
+                      Super Admin
+                    </span>
+                    <span className="truncate text-xs text-slate-400">
+                      admin@wachio.com
+                    </span>
+                  </div>
+                  <ChevronsUpDown className="h-4 w-4 shrink-0 text-slate-400" />
+                </>
+              )}
+            </span>
           </DropdownMenuTrigger>
+          
           <DropdownMenuContent
             side="top"
             align="start"
-            className="w-56"
-            sideOffset={8}
+            className="w-56 rounded-xl p-1 shadow-lg border border-slate-200/80"
+            sideOffset={12}
           >
-            <div className="flex items-center gap-2 px-2 py-1.5">
-              <Avatar className="h-7 w-7">
+            <div className="flex items-center gap-2.5 px-2.5 py-2">
+              <Avatar className="h-8 w-8 border border-slate-100">
                 <AvatarImage src="/avatars/admin.jpg" alt="Super Admin" />
-                <AvatarFallback className="bg-primary/15 text-primary text-xs font-semibold">
+                <AvatarFallback className="bg-slate-900 text-white text-xs font-bold">
                   SA
                 </AvatarFallback>
               </Avatar>
-              <div className="flex flex-col">
-                <span className="text-xs font-semibold">name</span>
-                <span className="text-[10px] text-muted-foreground">
-                  email
-                </span>
+              <div className="flex flex-col min-w-0">
+                <span className="text-xs font-semibold text-slate-800 truncate">Super Admin</span>
+                <span className="text-[11px] text-slate-400 truncate">admin@wachio.com</span>
               </div>
             </div>
-            <DropdownMenuSeparator />
-              <DropdownMenuItem
-                className="gap-2 text-sm cursor-pointer"
-                onClick={() => navigate("/profile")}
-              >
-                <Settings className="h-4 w-4 text-muted-foreground" />
-                Profile
-              </DropdownMenuItem>
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator className="bg-slate-100" />
+            
             <DropdownMenuItem
-              className="gap-2 text-sm text-destructive focus:text-destructive cursor-pointer"
+              className="gap-2.5 text-sm rounded-lg text-slate-600 focus:text-slate-900 focus:bg-slate-50 cursor-pointer py-2"
+              onClick={() => navigate("/profile")}
+            >
+              <Settings className="h-4 w-4 text-slate-400" />
+              Account Settings
+            </DropdownMenuItem>
+            
+            <DropdownMenuSeparator className="bg-slate-100" />
+            
+            <DropdownMenuItem
+              className="gap-2.5 text-sm rounded-lg text-red-600 focus:text-red-700 focus:bg-red-50/60 cursor-pointer py-2 font-medium"
               onClick={logoutHandler}
             >
               <LogOut className="h-4 w-4" />
