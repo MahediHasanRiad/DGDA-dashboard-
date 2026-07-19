@@ -4,7 +4,6 @@ import { useState } from "react";
 import { toast } from "sonner";
 import ContentEditor from "@/feature/privacy-policy/components/content-editor";
 
-
 export interface SiteContentSchema {
   id: string;
   title: string;
@@ -16,20 +15,19 @@ export interface SiteContentSchema {
 }
 
 interface SideContentType {
-    title: string;
-    content?: any;
+  title: string;
+  content?: any;
 }
 
-
-
-function SideContentPage({title, content}: SideContentType) {
+function SideContentPage({ title, content }: SideContentType) {
   // Store the active title string
-  const [selectContentValue, _setSelectContentValue] = useState('Privacy Policy');
+  const [selectContentValue, _setSelectContentValue] =
+    useState("Privacy Policy");
 
   const { control, handleSubmit } = useForm({
     defaultValues: {
-      description: '' // Seed initial content
-    }
+      description: "", // Seed initial content
+    },
   });
 
   const submitHandler: SubmitHandler<any> = async (d) => {
@@ -48,8 +46,14 @@ function SideContentPage({title, content}: SideContentType) {
         <h1 className="text-2xl md:text-4xl mb-4 text-text-primary-0 font-bold">
           {title}
         </h1>
+        <Button
+          className="bg-primary-0 lg:text-xl md:text-lg text-md text-black mt-4 p-6 rounded float-right"
+          type="submit"
+        >
+          Update
+        </Button>
       </div>
-      
+
       <div className="mt-10">
         <form onSubmit={handleSubmit(submitHandler)}>
           <div>
