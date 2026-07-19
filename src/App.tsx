@@ -1,12 +1,11 @@
 import { Route, Routes } from "react-router";
-import { Navigate, Outlet } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch, RootState } from "./store/store";
-import { useEffect } from "react";
 import LoginPage from "./feature/auth/login.page";
 import Layout from "./feature/layout/layout.page";
 import HomePage from "./feature/home/home.page";
 import PrivacyPolicyPage from "./feature/privacy-policy/privacy-polity";
+import TermsAndConditionPage from "./feature/privacy-policy/terms-and-condition";
+import CookiePage from "./feature/privacy-policy/cookie";
+
 
 
 export const ProtectedRoute = () => {
@@ -49,6 +48,8 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms-and-condition" element={<TermsAndConditionPage />} />
+          <Route path="/Cookie" element={<CookiePage />} />
          
         </Route>
       {/* </Route> */}

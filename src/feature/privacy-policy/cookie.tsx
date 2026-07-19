@@ -2,14 +2,14 @@ import SideContentPage from "@/shared/side-content";
 
 
 
-function PrivacyPolicyPage() {
+function CookiePage() {
 
 
   return (
     <div className="p-6">
-      <SideContentPage title="Privacy Policy" />
+      <SideContentPage title="Cookie" />
     </div>
   );
 }
 
-export default PrivacyPolicyPage;
+export default CookiePage;

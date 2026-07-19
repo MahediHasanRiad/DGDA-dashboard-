@@ -7,10 +7,18 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
   SidebarSeparator,
   useSidebar,
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,6 +34,7 @@ import {
   Settings,
   Users,
   Layers,
+  ChevronRight,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router";
 
@@ -46,10 +55,8 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar
-      collapsible="icon"
-      className="border-r-bg-secondary-0"
-    >
+    <Sidebar collapsible="icon" className="border-r-bg-secondary-0">
+      <SidebarSeparator />
       {/* Navigation Content */}
       <SidebarContent className="px-3 py-4 bg-bg-secondary-0">
         <SidebarGroup className="p-0">
@@ -88,27 +95,82 @@ export function AppSidebar() {
               </div>
 
               {/* Legal Sidebar Item */}
-              <SidebarMenuItem onClick={() => setOpenMobile(false)}>
-                <SidebarMenuButton className="h-10 w-full rounded-lg p-0 transition-all duration-200">
-                  <NavLink
-                    to="/privacy-policy"
-                    className={({ isActive }) => `
-                      flex items-center w-full h-full gap-3 px-3 rounded-lg text-sm font-medium transition-all
-                      ${
-                        isActive
-                          ? "bg-bg-primary-0/30 border-l-4 border-primary-0 text-text-primary-0 shadow-sm font-semibold"
-                          : "text-text-primary-0 hover:bg-bg-primary-0/30 hover:text-text-primary-0"
-                      }
-                    `}
-                  >
-                    <ShieldCheck
-                      className="h-4.5 w-4.5 shrink-0"
-                      strokeWidth={2}
-                    />
-                    <span className="truncate">Legal Content</span>
-                  </NavLink>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              <Collapsible className="group/collapsible">
+                <SidebarMenuItem>
+                  {/* The main interactive dropdown trigger element */}
+                  <CollapsibleTrigger className={'w-full'}>
+                    <SidebarMenuButton
+                      className="h-10 w-full rounded-lg px-3 transition-all duration-200 text-text-primary-0 hover:bg-bg-primary-0/30"
+                      tooltip="Legal Content"
+                    >
+                      <ShieldCheck
+                        className="h-4.5 w-4.5 shrink-0"
+                        strokeWidth={2}
+                      />
+                      <span className="truncate font-medium text-sm">
+                        Legal Content
+                      </span>
+                      <ChevronRight className="float-right ml-auto h-4 w-4 shrink-0 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                    </SidebarMenuButton>
+                  </CollapsibleTrigger>
+
+                  {/* The hidden submenu list container */}
+                  <CollapsibleContent className=''>
+                    <SidebarMenuSub className="mx-0 min-w-full pl-6 mt-1 flex flex-col gap-1 border-none">
+                      {/* 1. Privacy Policy Sub-Link */}
+                      <SidebarMenuSubItem className="space-y-2 text-sm">
+                        <SidebarMenuSubButton className="p-0 h-8">
+                          <NavLink
+                            to="/privacy-policy"
+                            className={({ isActive }) => `
+                              flex items-center w-full h-full px-3 text-xs rounded-md transition-all
+                              ${
+                                isActive
+                                  ? "bg-bg-primary-0/30 text-text-primary-0 font-semibold border-l-2 border-primary-0"
+                                  : "text-text-primary-0/80 hover:bg-bg-primary-0/20 hover:text-text-primary-0"
+                              }
+                            `}
+                          >
+                            Privacy Policy
+                          </NavLink>
+                        </SidebarMenuSubButton>
+                        <SidebarMenuSubButton className="p-0 h-8">
+                          <NavLink
+                            to="/terms-and-condition"
+                            className={({ isActive }) => `
+                              flex items-center w-full h-full px-3 text-xs rounded-md transition-all
+                              ${
+                                isActive
+                                  ? "bg-bg-primary-0/30 text-text-primary-0 font-semibold border-l-2 border-primary-0"
+                                  : "text-text-primary-0/80 hover:bg-bg-primary-0/20 hover:text-text-primary-0"
+                              }
+                            `}
+                          >
+                            Terms and Condition
+                          </NavLink>
+                        </SidebarMenuSubButton>
+                        <SidebarMenuSubButton className="p-0 h-8">
+                          <NavLink
+                            to="/cookie"
+                            className={({ isActive }) => `
+                              flex items-center w-full h-full px-3 text-xs rounded-md transition-all
+                              ${
+                                isActive
+                                  ? "bg-bg-primary-0/30 text-text-primary-0 font-semibold border-l-2 border-primary-0"
+                                  : "text-text-primary-0/80 hover:bg-bg-primary-0/20 hover:text-text-primary-0"
+                              }
+                            `}
+                          >
+                            Cookie
+                          </NavLink>
+                        </SidebarMenuSubButton>
+                      </SidebarMenuSubItem>
+
+                      {/* You can optionally append the matching sub-links here later */}
+                    </SidebarMenuSub>
+                  </CollapsibleContent>
+                </SidebarMenuItem>
+              </Collapsible>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -145,18 +207,18 @@ export function AppSidebar() {
           <DropdownMenuContent
             side="top"
             align="start"
-            className="w-56 rounded-xl p-1 shadow-lg border border-slate-200/80"
+            className="w-56 rounded-xl p-1 shadow-lg bg-bg-primary-0"
             sideOffset={12}
           >
             <div className="flex items-center gap-2.5 px-2.5 py-2">
               <Avatar className="h-8 w-8 border border-slate-100">
                 <AvatarImage src="/avatars/admin.jpg" alt="Super Admin" />
-                <AvatarFallback className="bg-slate-900 text-white text-xs font-bold">
+                <AvatarFallback className="bg-bg-primary-0 text-white text-xs font-bold">
                   SA
                 </AvatarFallback>
               </Avatar>
               <div className="flex flex-col min-w-0">
-                <span className="text-xs font-semibold text-slate-800 truncate">
+                <span className="text-xs font-semibold text-text-primary-0 truncate">
                   Super Admin
                 </span>
                 <span className="text-[11px] text-slate-400 truncate">
@@ -164,20 +226,20 @@ export function AppSidebar() {
                 </span>
               </div>
             </div>
-            <DropdownMenuSeparator className="bg-slate-100" />
+            <DropdownMenuSeparator className="bg-bg-primary-0" />
 
             <DropdownMenuItem
-              className="gap-2.5 text-sm rounded-lg text-slate-600 focus:text-slate-900 focus:bg-slate-50 cursor-pointer py-2"
+              className="gap-2.5 text-sm rounded-lg text-text-primary-0 focus:text-text-primary-0 focus:bg-bg-secondary-0 bg-bg-primary-0 cursor-pointer py-2"
               onClick={() => navigate("/profile")}
             >
               <Settings className="h-4 w-4 text-slate-400" />
-              Account Settings
+              Profile
             </DropdownMenuItem>
 
-            <DropdownMenuSeparator className="bg-slate-100" />
+            {/* <DropdownMenuSeparator className="bg-bg-primary-0/50" /> */}
 
             <DropdownMenuItem
-              className="gap-2.5 text-sm rounded-lg text-red-600 focus:text-red-700 focus:bg-red-50/60 cursor-pointer py-2 font-medium"
+              className="gap-2.5 text-sm rounded-lg text-red-600 focus:text-red-700 focus:bg-bg-secondary-0 cursor-pointer py-2 font-medium"
               onClick={logoutHandler}
             >
               <LogOut className="h-4 w-4" />
