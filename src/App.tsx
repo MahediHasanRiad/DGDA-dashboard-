@@ -5,6 +5,7 @@ import HomePage from "./feature/home/home.page";
 import PrivacyPolicyPage from "./feature/privacy-policy/privacy-polity";
 import TermsAndConditionPage from "./feature/privacy-policy/terms-and-condition";
 import CookiePage from "./feature/privacy-policy/cookie";
+import ProfilePage from "./feature/profile/profile.page";
 
 
 
@@ -47,6 +48,9 @@ function App() {
       {/* <Route element={<ProtectedRoute />}> */}
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+
+
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="/terms-and-condition" element={<TermsAndConditionPage />} />
           <Route path="/Cookie" element={<CookiePage />} />
