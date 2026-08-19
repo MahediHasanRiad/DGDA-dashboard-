@@ -23,7 +23,6 @@ export const baseQueryWithRefresh: BaseQueryFn<string | FetchArgs> = async (
   api,
   extraOptions,
 ) => {
-
   await mutex.waitForUnlock();
 
   let result = await baseQuery(args, api, extraOptions);
@@ -78,5 +77,3 @@ export const baseQueryWithRefresh: BaseQueryFn<string | FetchArgs> = async (
 
   return result;
 };
-
-
