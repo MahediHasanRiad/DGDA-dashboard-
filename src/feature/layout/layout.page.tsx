@@ -23,6 +23,7 @@ const PAGE_TITLES: Record<string, string> = {
   "/ai-trainer": "Dashboard",
   "/ai-knowledge-trainer": "Dashboard",
   "/report": "Dashboard",
+  "/report-incorrect-data": "Dashboard",
   "/notifications": "Dashboard",
   "/content": "Dashboard",
   "/profile": "Dashboard",
