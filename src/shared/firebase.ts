@@ -1,44 +1,44 @@
-import { initializeApp } from "firebase/app";
-import { getMessaging, getToken, onMessage } from "firebase/messaging";
+// import { initializeApp } from "firebase/app";
+// import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
-const firebaseConfig = {
-  apiKey: `${import.meta.env.VITE_FIREBASE_API_KEY}`,
-  authDomain: `${import.meta.env.VITE_FIREBASE_AUTH_DOMAIN}`,
-  projectId: `${import.meta.env.VITE_FIREBASE_PROJECT_ID}`,
-  storageBucket: `${import.meta.env.VITE_FIREBASE_STORAGE_BUCKET}`,
-  messagingSenderId: `${import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID}`,
-  appId: `${import.meta.env.VITE_FIREBASE_APP_ID}`
-};
+// const firebaseConfig = {
+//   apiKey: `${import.meta.env.VITE_FIREBASE_API_KEY}`,
+//   authDomain: `${import.meta.env.VITE_FIREBASE_AUTH_DOMAIN}`,
+//   projectId: `${import.meta.env.VITE_FIREBASE_PROJECT_ID}`,
+//   storageBucket: `${import.meta.env.VITE_FIREBASE_STORAGE_BUCKET}`,
+//   messagingSenderId: `${import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID}`,
+//   appId: `${import.meta.env.VITE_FIREBASE_APP_ID}`
+// };
 
-const app = initializeApp(firebaseConfig);
-export const messaging = getMessaging(app);
+// const app = initializeApp(firebaseConfig);
+// export const messaging = getMessaging(app);
 
-// Request permission and fetch token
-export const requestForToken = async () => {
-  try {
-    const permission = await Notification.requestPermission();
-    if (permission === "granted") {
-      const currentToken = await getToken(messaging, {
-        vapidKey: `${import.meta.env.VITE_VAPIDKEY}`, 
-      });
+// // Request permission and fetch token
+// export const requestForToken = async () => {
+//   try {
+//     const permission = await Notification.requestPermission();
+//     if (permission === "granted") {
+//       const currentToken = await getToken(messaging, {
+//         vapidKey: `${import.meta.env.VITE_VAPIDKEY}`, 
+//       });
 
-      if (currentToken) {
-        // console.log("FCM Device Token:", currentToken);
-        return currentToken;
-      }
-    } else {
-      console.warn("Notification permission denied by user.");
-    }
-  } catch (error) {
-    console.error("Error retrieving token:", error);
-  }
-};
+//       if (currentToken) {
+//         // console.log("FCM Device Token:", currentToken);
+//         return currentToken;
+//       }
+//     } else {
+//       console.warn("Notification permission denied by user.");
+//     }
+//   } catch (error) {
+//     console.error("Error retrieving token:", error);
+//   }
+// };
 
-// Listen for notifications while user is browsing (foreground)
-export const onMessageListener = () =>
-  new Promise((resolve) => {
-    onMessage(messaging, (payload) => {
-      console.log("Foreground Notification Received:", payload);
-      resolve(payload);
-    });
-  });
+// // Listen for notifications while user is browsing (foreground)
+// export const onMessageListener = () =>
+//   new Promise((resolve) => {
+//     onMessage(messaging, (payload) => {
+//       console.log("Foreground Notification Received:", payload);
+//       resolve(payload);
+//     });
+//   });
