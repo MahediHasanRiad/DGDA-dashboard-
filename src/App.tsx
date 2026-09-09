@@ -14,6 +14,7 @@ import PartnersPage from "./feature/partner and sponsors/partners.page";
 import AIKnowledgeTrainerPage from "./feature/ai-knowledge-trainer/ai-knowledge-trainer.page";
 import ReportIncorrectDataPage from "./feature/report-incorrect-data/report-incorrect-data.page";
 import NotificationPage from "./feature/notification/notification.page";
+import FAQPage from "./feature/faq/faq.page";
 
 
 
@@ -67,6 +68,8 @@ function App() {
           <Route path="/report-incorrect-data" element={<ReportIncorrectDataPage />} />
           <Route path="/notifications" element={<NotificationPage />} />
           <Route path="/notification" element={<NotificationPage />} />
+          <Route path="/faq" element={<FAQPage />} />
+          <Route path="/content/faq" element={<FAQPage />} />
           <Route path="/profile" element={<ProfilePage />} />
 
 

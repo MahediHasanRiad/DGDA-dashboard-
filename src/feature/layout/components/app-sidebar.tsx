@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -22,12 +23,16 @@ import {
   AlertTriangle,
   Bell,
   Layers,
+  HelpCircle,
+  ShieldAlert,
+  ChevronDown,
+  ChevronUp,
   LogOut,
 } from "lucide-react";
-import { NavLink, useNavigate } from "react-router";
+import { NavLink, useNavigate, useLocation } from "react-router";
 import { cn } from "@/lib/utils";
 
-const navItems = [
+const mainNavItems = [
   { label: "Dashboard Overview", icon: LayoutDashboard, href: "/" },
   { label: "User & NIF Management", icon: Users, href: "/users" },
   { label: "News & Press Manager", icon: Newspaper, href: "/news" },
@@ -37,13 +42,26 @@ const navItems = [
   { label: "AI Knowledge Trainer", icon: BrainCircuit, href: "/ai-trainer" },
   { label: "Report Incorrect Data", icon: AlertTriangle, href: "/report" },
   { label: "Push Notifications", icon: Bell, href: "/notifications" },
-  { label: "Content Manager", icon: Layers, href: "/content" },
+];
+
+const contentSubItems = [
+  { label: "FAQ", icon: HelpCircle, href: "/faq" },
+  { label: "Privacy policy", icon: ShieldAlert, href: "/privacy-policy" },
 ];
 
 export function AppSidebar() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { state } = useSidebar();
   const isCollapsed = state === "collapsed";
+
+  const isContentActive =
+    location.pathname.startsWith("/faq") ||
+    location.pathname.startsWith("/privacy-policy") ||
+    location.pathname.startsWith("/terms-and-condition") ||
+    location.pathname.startsWith("/cookie");
+
+  const [isContentOpen, setIsContentOpen] = useState(true);
 
   const logoutHandler = () => {
     localStorage.removeItem("access-token");
@@ -59,13 +77,18 @@ export function AppSidebar() {
       {/* ── Logo Header ── */}
       <SidebarHeader
         className="px-4 py-5 border-b"
-        style={{ borderColor: "var(--color-sidebar-border)", backgroundColor: "var(--color-sidebar-bg)" }}
+        style={{
+          borderColor: "var(--color-sidebar-border)",
+          backgroundColor: "var(--color-sidebar-bg)",
+        }}
       >
         <div className="flex items-center gap-3 min-w-0">
           {/* Shield / crest icon */}
           <div
             className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl shadow-lg"
-            style={{ background: "linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%)" }}
+            style={{
+              background: "linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%)",
+            }}
           >
             <svg
               viewBox="0 0 24 24"
@@ -99,10 +122,16 @@ export function AppSidebar() {
 
           {!isCollapsed && (
             <div className="flex flex-col min-w-0">
-              <span className="text-sm font-bold leading-tight" style={{ color: "#F8FAFC" }}>
+              <span
+                className="text-sm font-bold leading-tight"
+                style={{ color: "#F8FAFC" }}
+              >
                 DGDA
               </span>
-              <span className="text-[10px] leading-tight" style={{ color: "var(--color-sidebar-text)" }}>
+              <span
+                className="text-[10px] leading-tight"
+                style={{ color: "var(--color-sidebar-text)" }}
+              >
                 Direction Générale
               </span>
             </div>
@@ -118,10 +147,9 @@ export function AppSidebar() {
         <SidebarGroup className="p-0">
           <SidebarGroupContent>
             <SidebarMenu className="gap-0.5">
-              {navItems.map(({ label, icon: Icon, href }) => (
+              {mainNavItems.map(({ label, icon: Icon, href }) => (
                 <SidebarMenuItem key={label}>
                   <SidebarMenuButton
-                    
                     className="h-9 w-full rounded-lg p-0 transition-all duration-150 hover:bg-transparent"
                     tooltip={label}
                   >
@@ -137,7 +165,10 @@ export function AppSidebar() {
                       }
                       style={({ isActive }) =>
                         isActive
-                          ? { backgroundColor: "rgba(245, 158, 11, 0.08)", color: "#FFFFFF" }
+                          ? {
+                              backgroundColor: "rgba(245, 158, 11, 0.08)",
+                              color: "#FFFFFF",
+                            }
                           : { color: "var(--color-sidebar-text)" }
                       }
                     >
@@ -145,7 +176,11 @@ export function AppSidebar() {
                         <>
                           <Icon
                             className="h-4 w-4 shrink-0 transition-colors"
-                            style={{ color: isActive ? "var(--color-accent-gold)" : "inherit" }}
+                            style={{
+                              color: isActive
+                                ? "var(--color-accent-gold)"
+                                : "inherit",
+                            }}
                             strokeWidth={1.8}
                           />
                           <span className="truncate">{label}</span>
@@ -155,6 +190,71 @@ export function AppSidebar() {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
+
+              {/* ── Content Manager Accordion ── */}
+              <SidebarMenuItem>
+                <button
+                  type="button"
+                  onClick={() => setIsContentOpen((prev) => !prev)}
+                  className={cn(
+                    "flex items-center justify-between w-full h-9 px-3 rounded-lg text-[13px] font-medium transition-all duration-150 border cursor-pointer",
+                    isContentActive
+                      ? "border-transparent text-white font-semibold bg-[#13243C]"
+                      : "border-transparent text-slate-400 hover:bg-[#13243C] hover:text-slate-200"
+                  )}
+                >
+                  <div className="flex items-center gap-3 min-w-0">
+                    <Layers className="h-4 w-4 shrink-0" strokeWidth={1.8} />
+                    {!isCollapsed && (
+                      <span className="truncate">Content Manager</span>
+                    )}
+                  </div>
+                  {!isCollapsed && (
+                    <div>
+                      {isContentOpen ? (
+                        <ChevronUp className="h-3.5 w-3.5 text-slate-400" />
+                      ) : (
+                        <ChevronDown className="h-3.5 w-3.5 text-slate-400" />
+                      )}
+                    </div>
+                  )}
+                </button>
+
+                {/* Sub-menu Items */}
+                {isContentOpen && !isCollapsed && (
+                  <div className="pl-6 pt-1 space-y-0.5">
+                    {contentSubItems.map(({ label, icon: Icon, href }) => (
+                      <NavLink
+                        key={label}
+                        to={href}
+                        className={({ isActive }) =>
+                          cn(
+                            "flex items-center w-full h-8 gap-2.5 px-3 rounded-lg text-[12px] font-medium transition-all duration-150 border",
+                            isActive
+                              ? "border-[#F59E0B] text-white font-semibold bg-[rgba(245,158,11,0.08)] shadow-sm"
+                              : "border-transparent text-slate-400 hover:bg-[#13243C] hover:text-slate-200"
+                          )
+                        }
+                      >
+                        {({ isActive }) => (
+                          <>
+                            <Icon
+                              className="h-3.5 w-3.5 shrink-0"
+                              style={{
+                                color: isActive
+                                  ? "var(--color-accent-gold)"
+                                  : "inherit",
+                              }}
+                              strokeWidth={1.8}
+                            />
+                            <span className="truncate">{label}</span>
+                          </>
+                        )}
+                      </NavLink>
+                    ))}
+                  </div>
+                )}
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -202,7 +302,7 @@ export function AppSidebar() {
         <button
           onClick={logoutHandler}
           className={[
-            "flex items-center justify-center gap-2 w-full rounded-lg py-2 text-sm font-semibold transition-all duration-150 hover:opacity-90 active:scale-95",
+            "flex items-center justify-center gap-2 w-full rounded-lg py-2 text-sm font-semibold transition-all duration-150 hover:opacity-90 active:scale-95 cursor-pointer",
             isCollapsed ? "px-2" : "px-3",
           ].join(" ")}
           style={{ backgroundColor: "var(--color-accent-red)", color: "#fff" }}

@@ -26,6 +26,8 @@ const PAGE_TITLES: Record<string, string> = {
   "/report-incorrect-data": "Dashboard",
   "/notifications": "Dashboard",
   "/notification": "Dashboard",
+  "/faq": "Dashboard",
+  "/content/faq": "Dashboard",
   "/content": "Dashboard",
   "/profile": "Dashboard",
 };
