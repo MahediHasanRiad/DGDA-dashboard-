@@ -262,7 +262,7 @@ function PaginationBar({
   onPageChange: (page: number) => void;
 }) {
   return (
-    <div className="flex items-center justify-end gap-1.5 px-5 py-3.5">
+    <div className="flex items-center justify-center sm:justify-end gap-1.5 px-4 py-3 sm:px-5 sm:py-3.5">
       <button
         id="pagination-prev-btn"
         onClick={() => onPageChange(Math.max(1, currentPage - 1))}
@@ -333,7 +333,7 @@ export function NewsTable({
       }}
     >
       <div className="overflow-x-auto">
-        <table className="w-full text-left">
+        <table className="w-full min-w-[650px] text-left">
           <thead>
             <tr
               style={{

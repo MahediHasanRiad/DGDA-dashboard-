@@ -28,7 +28,7 @@ function NewsStatCardItem({ card }: { card: NewsStatCard }) {
   return (
     <div
       id={`news-stat-card-${card.id}`}
-      className="relative flex items-center gap-5 overflow-hidden rounded-2xl border p-6 shadow-sm transition-all hover:shadow-md"
+      className="relative flex items-center gap-3 sm:gap-5 overflow-hidden rounded-2xl border p-4 sm:p-6 shadow-sm transition-all hover:shadow-md"
       style={{
         backgroundColor: "var(--color-bg-card)",
         borderColor: "var(--color-border-0)",
@@ -39,22 +39,22 @@ function NewsStatCardItem({ card }: { card: NewsStatCard }) {
         <img
           src={card.icon}
           alt={card.iconAlt}
-          className="h-28 w-28 object-contain drop-shadow-md"
+          className="h-20 w-20 sm:h-28 sm:w-28 object-contain drop-shadow-md"
           loading="lazy"
         />
       </div>
 
       {/* Content */}
-      <div className="flex min-w-0 flex-1 flex-col justify-center gap-1">
+      <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5 sm:gap-1">
         <span
-          className="text-sm font-medium leading-tight"
+          className="text-xs sm:text-sm font-medium leading-tight truncate"
           style={{ color: "var(--color-text-secondary)" }}
         >
           {card.label}
         </span>
 
         <span
-          className="text-3xl lg:text-4xl font-extrabold tracking-tight"
+          className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight"
           style={{ color: "var(--color-text-primary-0)" }}
         >
           {card.value}
@@ -63,7 +63,7 @@ function NewsStatCardItem({ card }: { card: NewsStatCard }) {
         <div className="mt-1 flex items-center gap-1.5">
           {card.isPositive ? (
             <span
-              className="flex items-center gap-1 text-xs font-semibold"
+              className="flex items-center gap-1 text-xs font-semibold truncate"
               style={{ color: "var(--color-accent-green)" }}
             >
               <TrendingUp className="h-3 w-3 shrink-0" strokeWidth={2.5} />
@@ -71,7 +71,7 @@ function NewsStatCardItem({ card }: { card: NewsStatCard }) {
             </span>
           ) : (
             <span
-              className="text-xs font-normal"
+              className="text-xs font-normal truncate"
               style={{ color: "var(--color-text-muted)" }}
             >
               {card.subtext}
@@ -121,7 +121,7 @@ export function NewsStatCards({
   ];
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+    <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
       {cards.map((card) => (
         <NewsStatCardItem key={card.id} card={card} />
       ))}

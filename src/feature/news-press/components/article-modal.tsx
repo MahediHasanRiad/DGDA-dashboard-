@@ -107,23 +107,23 @@ export function ArticleModal({
       }}
     >
       <div
-        className="relative w-full max-w-3xl my-8 rounded-3xl border shadow-2xl p-6 sm:p-9 text-left"
+        className="relative w-full max-w-3xl my-6 sm:my-8 rounded-2xl sm:rounded-3xl border shadow-2xl p-4 sm:p-8 text-left max-h-[92vh] overflow-y-auto"
         style={{
           backgroundColor: "#102035",
           borderColor: "var(--color-border-0)",
         }}
       >
         {/* ── Top Header ── */}
-        <div className="flex items-start justify-between gap-4 mb-6">
+        <div className="flex items-start justify-between gap-3 mb-5 sm:mb-6">
           <div className="min-w-0">
             <h2
-              className="text-2xl sm:text-3xl font-bold tracking-tight"
+              className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight"
               style={{ color: "var(--color-text-primary-0)" }}
             >
               {articleToEdit ? "Edit News Article" : "Create News Article"}
             </h2>
             <p
-              className="text-xs sm:text-sm mt-1.5 font-normal"
+              className="text-xs sm:text-sm mt-1 font-normal"
               style={{ color: "var(--color-text-secondary)" }}
             >
               Feeds the DGDA Mobile App news carousel and trade regulatory bulletin.
@@ -135,20 +135,20 @@ export function ArticleModal({
             id="article-modal-close-btn"
             type="button"
             onClick={onClose}
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-white shadow-md transition-transform hover:scale-105 active:scale-95"
+            className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-lg text-white shadow-md transition-transform hover:scale-105 active:scale-95"
             style={{ backgroundColor: "#EF4444" }}
           >
-            <X className="h-5 w-5" strokeWidth={2.5} />
+            <X className="h-4 w-4 sm:h-5 sm:w-5" strokeWidth={2.5} />
           </button>
         </div>
 
         {/* ── Form Body ── */}
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
           {/* 1. Article Title */}
           <div>
             <label
               htmlFor="article-title-input"
-              className="block text-xs font-semibold uppercase tracking-wider mb-2"
+              className="block text-xs font-semibold uppercase tracking-wider mb-1.5"
               style={{ color: "var(--color-text-primary-0)" }}
             >
               Article Title *
@@ -160,7 +160,7 @@ export function ArticleModal({
               placeholder="enter value"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full rounded-xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder:text-slate-500 shadow-inner"
+              className="w-full rounded-xl px-3.5 py-2.5 sm:px-4 sm:py-3 text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder:text-slate-500 shadow-inner"
               style={{
                 backgroundColor: "#DCE6F2",
                 color: "#0F172A",
@@ -172,7 +172,7 @@ export function ArticleModal({
           {/* 2. Thumbnail Image Upload & Selection */}
           <div>
             <label
-              className="block text-xs font-semibold uppercase tracking-wider mb-2"
+              className="block text-xs font-semibold uppercase tracking-wider mb-1.5"
               style={{ color: "var(--color-text-primary-0)" }}
             >
               Thumbnail Image Upload & Selection
@@ -188,7 +188,7 @@ export function ArticleModal({
 
             <div
               onClick={() => fileInputRef.current?.click()}
-              className="relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed py-10 px-6 transition-all cursor-pointer group"
+              className="relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed py-8 sm:py-10 px-4 sm:px-6 transition-all cursor-pointer group"
               style={{
                 borderColor: "#23426A",
                 backgroundColor: "#0B1728",
@@ -210,11 +210,11 @@ export function ArticleModal({
               )}
 
               {thumbnailPreview ? (
-                <div className="flex flex-col items-center gap-3">
+                <div className="flex flex-col items-center gap-2.5">
                   <img
                     src={thumbnailPreview}
                     alt="Preview"
-                    className="h-28 w-44 rounded-xl object-cover border shadow-md"
+                    className="h-24 w-36 sm:h-28 sm:w-44 rounded-xl object-cover border shadow-md"
                     style={{ borderColor: "var(--color-border-0)" }}
                   />
                   <span
@@ -228,13 +228,13 @@ export function ArticleModal({
                 <>
                   {/* Yellow upload square button */}
                   <div
-                    className="flex h-11 w-11 items-center justify-center rounded-xl text-white shadow-md transition-transform group-hover:scale-105"
+                    className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl text-white shadow-md transition-transform group-hover:scale-105"
                     style={{ backgroundColor: "#F59E0B" }}
                   >
                     <Upload className="h-5 w-5" strokeWidth={2.2} />
                   </div>
                   <span
-                    className="mt-3 text-xs font-medium"
+                    className="mt-2.5 text-xs font-medium"
                     style={{ color: "var(--color-text-muted)" }}
                   >
                     Click to browse
@@ -247,7 +247,7 @@ export function ArticleModal({
           {/* 3. Article Body (Rich Text) with Library-driven Quill Editor */}
           <div>
             <label
-              className="block text-xs font-semibold uppercase tracking-wider mb-2"
+              className="block text-xs font-semibold uppercase tracking-wider mb-1.5"
               style={{ color: "var(--color-text-primary-0)" }}
             >
               Article Body (Rich Text) *
@@ -261,11 +261,11 @@ export function ArticleModal({
           </div>
 
           {/* ── Footer Buttons ── */}
-          <div className="flex items-center gap-3 pt-2">
+          <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2.5 sm:gap-3 pt-3 border-t border-[#1C3352]">
             <button
               type="button"
               onClick={onClose}
-              className="rounded-lg px-6 py-2.5 text-xs sm:text-sm font-semibold transition-colors hover:bg-slate-300 shadow-sm"
+              className="rounded-xl px-6 py-2.5 text-xs sm:text-sm font-semibold transition-colors hover:bg-slate-300 shadow-sm text-center"
               style={{
                 backgroundColor: "#CBD5E1",
                 color: "#0B1728",
@@ -276,7 +276,7 @@ export function ArticleModal({
             <button
               id="article-publish-btn"
               type="submit"
-              className="rounded-lg px-7 py-2.5 text-xs sm:text-sm font-semibold transition-all hover:opacity-90 active:scale-95 shadow-md"
+              className="rounded-xl px-7 py-2.5 text-xs sm:text-sm font-semibold transition-all hover:opacity-90 active:scale-95 shadow-md text-center"
               style={{
                 backgroundColor: "#F59E0B",
                 color: "#0B1728",

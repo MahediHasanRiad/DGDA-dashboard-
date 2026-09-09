@@ -96,7 +96,7 @@ export default function NewsPressPage() {
 
   return (
     <div
-      className="min-h-full p-6 space-y-6"
+      className="min-h-full p-4 sm:p-6 space-y-4 sm:space-y-6"
       style={{ backgroundColor: "var(--color-bg-primary-0)" }}
     >
       {/* Hero Banner */}
