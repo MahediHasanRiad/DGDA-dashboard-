@@ -3,8 +3,9 @@ import LoginPage from "./feature/auth/login.page";
 import Layout from "./feature/layout/layout.page";
 import OverviewPage from "./feature/overview/overview.page";
 import UsersPage from "./feature/users/users.page";
-import PrivacyPolicyPage from "./feature/privacy-policy/privacy-polity";
-import TermsAndConditionPage from "./feature/privacy-policy/terms-and-condition";
+import PrivacyPolicyPage from "./feature/content-management/privacy-policy.page";
+import TermsAndConditionPage from "./feature/content-management/terms-and-condition.page";
+import AboutUsPage from "./feature/content-management/about-us.page";
 import CookiePage from "./feature/privacy-policy/cookie";
 import NewsPressPage from "./feature/news-press/news-press.page";
 import OfficesPage from "./feature/offices/offices.page";
@@ -74,7 +75,11 @@ function App() {
 
 
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/content/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/about-us" element={<AboutUsPage />} />
+          <Route path="/content/about-us" element={<AboutUsPage />} />
           <Route path="/terms-and-condition" element={<TermsAndConditionPage />} />
+          <Route path="/content/terms-and-condition" element={<TermsAndConditionPage />} />
           <Route path="/Cookie" element={<CookiePage />} />
          
         </Route>

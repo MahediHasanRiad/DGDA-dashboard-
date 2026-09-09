@@ -42,11 +42,13 @@ const mainNavItems = [
   { label: "AI Knowledge Trainer", icon: BrainCircuit, href: "/ai-trainer" },
   { label: "Report Incorrect Data", icon: AlertTriangle, href: "/report" },
   { label: "Push Notifications", icon: Bell, href: "/notifications" },
+  { label: "FAQ", icon: HelpCircle, href: "/faq" },
 ];
 
 const contentSubItems = [
-  { label: "FAQ", icon: HelpCircle, href: "/faq" },
   { label: "Privacy policy", icon: ShieldAlert, href: "/privacy-policy" },
+  { label: "About us", icon: Building2, href: "/about-us" },
+  { label: "Terms and condition", icon: FileText, href: "/terms-and-condition" },
 ];
 
 export function AppSidebar() {
