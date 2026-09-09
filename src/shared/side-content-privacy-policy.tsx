@@ -5,10 +5,8 @@ import { toast } from "sonner";
 import ContentEditor from "@/feature/privacy-policy/components/content-editor";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/store/store";
-import {
-  useGetPrivacyPolicyQuery,
-  useUpdatePrivacyPolicyMutation,
-} from "../feature/privacy-policy/redux/privacy-policy.redux";
+import { useGetPrivacyPolicyQuery, useUpdatePrivacyPolicyMutation } from "@/feature/privacy-policy/redux/privacy-policy.redux";
+
 
 export interface SiteContentSchema {
   id: string;

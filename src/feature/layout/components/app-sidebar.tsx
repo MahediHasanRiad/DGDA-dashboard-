@@ -4,49 +4,45 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
-  SidebarSeparator,
   useSidebar,
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
   LayoutDashboard,
-  ShieldCheck,
-  ChevronsUpDown,
-  LogOut,
-  Settings,
   Users,
+  Newspaper,
+  Building2,
+  FileText,
+  Handshake,
+  BrainCircuit,
+  AlertTriangle,
+  Bell,
   Layers,
-  ChevronRight,
+  LogOut,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router";
+import { cn } from "@/lib/utils";
 
 const navItems = [
-  { label: "Overview", icon: LayoutDashboard, href: "/" },
-  { label: "User", icon: Users, href: "/user" },
-  { label: "Package", icon: Layers, href: "/package" },
+  { label: "Dashboard Overview", icon: LayoutDashboard, href: "/" },
+  { label: "User & NIF Management", icon: Users, href: "/users" },
+  { label: "News & Press Manager", icon: Newspaper, href: "/news" },
+  { label: "DGDA Offices & Directory", icon: Building2, href: "/offices" },
+  { label: "Document Center", icon: FileText, href: "/documents" },
+  { label: "Partners & Sponsors", icon: Handshake, href: "/partners" },
+  { label: "AI Knowledge Trainer", icon: BrainCircuit, href: "/ai-trainer" },
+  { label: "Report Incorrect Data", icon: AlertTriangle, href: "/report" },
+  { label: "Push Notifications", icon: Bell, href: "/notifications" },
+  { label: "Content Manager", icon: Layers, href: "/content" },
 ];
 
 export function AppSidebar() {
   const navigate = useNavigate();
-  const { setOpenMobile, state } = useSidebar();
+  const { state } = useSidebar();
   const isCollapsed = state === "collapsed";
 
   const logoutHandler = () => {
@@ -55,198 +51,165 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar collapsible="icon" className="border-r-bg-secondary-0">
-      <SidebarSeparator />
-      {/* Navigation Content */}
-      <SidebarContent className="px-3 py-4 bg-bg-secondary-0">
+    <Sidebar
+      collapsible="icon"
+      className="border-r-0"
+      style={{ backgroundColor: "var(--color-sidebar-bg)" }}
+    >
+      {/* ── Logo Header ── */}
+      <SidebarHeader
+        className="px-4 py-5 border-b"
+        style={{ borderColor: "var(--color-sidebar-border)", backgroundColor: "var(--color-sidebar-bg)" }}
+      >
+        <div className="flex items-center gap-3 min-w-0">
+          {/* Shield / crest icon */}
+          <div
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl shadow-lg"
+            style={{ background: "linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%)" }}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              className="h-6 w-6"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 2L3 6V12C3 16.97 7.02 21.61 12 23C16.98 21.61 21 16.97 21 12V6L12 2Z"
+                fill="#FBBF24"
+                stroke="#F59E0B"
+                strokeWidth="0.5"
+              />
+              <path
+                d="M12 5L5 8.5V12C5 15.87 8.14 19.42 12 20.7C15.86 19.42 19 15.87 19 12V8.5L12 5Z"
+                fill="#1D4ED8"
+              />
+              <text
+                x="12"
+                y="15"
+                textAnchor="middle"
+                fill="white"
+                fontSize="7"
+                fontWeight="bold"
+                fontFamily="Inter, sans-serif"
+              >
+                DG
+              </text>
+            </svg>
+          </div>
+
+          {!isCollapsed && (
+            <div className="flex flex-col min-w-0">
+              <span className="text-sm font-bold leading-tight" style={{ color: "#F8FAFC" }}>
+                DGDA
+              </span>
+              <span className="text-[10px] leading-tight" style={{ color: "var(--color-sidebar-text)" }}>
+                Direction Générale
+              </span>
+            </div>
+          )}
+        </div>
+      </SidebarHeader>
+
+      {/* ── Nav Content ── */}
+      <SidebarContent
+        className="px-2 py-3"
+        style={{ backgroundColor: "var(--color-sidebar-bg)" }}
+      >
         <SidebarGroup className="p-0">
           <SidebarGroupContent>
-            <SidebarMenu className="gap-1">
+            <SidebarMenu className="gap-0.5">
               {navItems.map(({ label, icon: Icon, href }) => (
-                <SidebarMenuItem
-                  key={label}
-                  onClick={() => setOpenMobile(false)}
-                >
-                  <SidebarMenuButton className="h-10 w-full rounded-lg p-0 transition-all duration-200">
+                <SidebarMenuItem key={label}>
+                  <SidebarMenuButton
+                    
+                    className="h-9 w-full rounded-lg p-0 transition-all duration-150 hover:bg-transparent"
+                    tooltip={label}
+                  >
                     <NavLink
                       to={href}
-                      className={({ isActive }) => `
-                        flex items-center w-full h-full gap-3 px-3 rounded-lg text-sm font-medium transition-all
-                        ${
+                      className={({ isActive }) =>
+                        cn(
+                          "flex items-center w-full h-full gap-3 px-3 rounded-lg text-[13px] font-medium transition-all duration-150 border",
                           isActive
-                            ? "bg-bg-primary-0/30 border-l-4 border-primary-0 text-text-primary-0 shadow-sm font-semibold"
-                            : "text-text-primary-0 hover:bg-bg-primary-0/30 hover:text-text-primary-0"
-                        }
-                      `}
+                            ? "border-[#F59E0B] text-white font-semibold shadow-sm"
+                            : "border-transparent hover:bg-[#13243C]"
+                        )
+                      }
+                      style={({ isActive }) =>
+                        isActive
+                          ? { backgroundColor: "rgba(245, 158, 11, 0.08)", color: "#FFFFFF" }
+                          : { color: "var(--color-sidebar-text)" }
+                      }
                     >
-                      <Icon className="h-4.5 w-4.5 shrink-0" strokeWidth={2} />
-                      <span className="truncate">{label}</span>
+                      {({ isActive }) => (
+                        <>
+                          <Icon
+                            className="h-4 w-4 shrink-0 transition-colors"
+                            style={{ color: isActive ? "var(--color-accent-gold)" : "inherit" }}
+                            strokeWidth={1.8}
+                          />
+                          <span className="truncate">{label}</span>
+                        </>
+                      )}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
-
-              {/* Legal Section Divider */}
-              <div className="flex items-center gap-2 mt-6 mb-2 px-3 group-data-[collapsible=icon]:hidden">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-text-primary-0/60 block whitespace-nowrap">
-                  Management
-                </span>
-                <div className="h-px w-full bg-bg-secondary-0" />
-              </div>
-
-              {/* Legal Sidebar Item */}
-              <Collapsible className="group/collapsible">
-                <SidebarMenuItem>
-                  {/* The main interactive dropdown trigger element */}
-                  <CollapsibleTrigger className={'w-full'}>
-                    <SidebarMenuButton
-                      className="h-10 w-full rounded-lg px-3 transition-all duration-200 text-text-primary-0 hover:bg-bg-primary-0/30"
-                      tooltip="Legal Content"
-                    >
-                      <ShieldCheck
-                        className="h-4.5 w-4.5 shrink-0"
-                        strokeWidth={2}
-                      />
-                      <span className="truncate font-medium text-sm">
-                        Legal Content
-                      </span>
-                      <ChevronRight className="float-right ml-auto h-4 w-4 shrink-0 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                    </SidebarMenuButton>
-                  </CollapsibleTrigger>
-
-                  {/* The hidden submenu list container */}
-                  <CollapsibleContent className=''>
-                    <SidebarMenuSub className="mx-0 min-w-full pl-6 mt-1 flex flex-col gap-1 border-none">
-                      {/* 1. Privacy Policy Sub-Link */}
-                      <SidebarMenuSubItem className="space-y-2 text-sm">
-                        <SidebarMenuSubButton className="p-0 h-8">
-                          <NavLink
-                            to="/privacy-policy"
-                            className={({ isActive }) => `
-                              flex items-center w-full h-full px-3 text-xs rounded-md transition-all
-                              ${
-                                isActive
-                                  ? "bg-bg-primary-0/30 text-text-primary-0 font-semibold border-l-2 border-primary-0"
-                                  : "text-text-primary-0/80 hover:bg-bg-primary-0/20 hover:text-text-primary-0"
-                              }
-                            `}
-                          >
-                            Privacy Policy
-                          </NavLink>
-                        </SidebarMenuSubButton>
-                        <SidebarMenuSubButton className="p-0 h-8">
-                          <NavLink
-                            to="/terms-and-condition"
-                            className={({ isActive }) => `
-                              flex items-center w-full h-full px-3 text-xs rounded-md transition-all
-                              ${
-                                isActive
-                                  ? "bg-bg-primary-0/30 text-text-primary-0 font-semibold border-l-2 border-primary-0"
-                                  : "text-text-primary-0/80 hover:bg-bg-primary-0/20 hover:text-text-primary-0"
-                              }
-                            `}
-                          >
-                            Terms and Condition
-                          </NavLink>
-                        </SidebarMenuSubButton>
-                        <SidebarMenuSubButton className="p-0 h-8">
-                          <NavLink
-                            to="/cookie"
-                            className={({ isActive }) => `
-                              flex items-center w-full h-full px-3 text-xs rounded-md transition-all
-                              ${
-                                isActive
-                                  ? "bg-bg-primary-0/30 text-text-primary-0 font-semibold border-l-2 border-primary-0"
-                                  : "text-text-primary-0/80 hover:bg-bg-primary-0/20 hover:text-text-primary-0"
-                              }
-                            `}
-                          >
-                            Cookie
-                          </NavLink>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-
-                      {/* You can optionally append the matching sub-links here later */}
-                    </SidebarMenuSub>
-                  </CollapsibleContent>
-                </SidebarMenuItem>
-              </Collapsible>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
 
-      {/* Footer: Profile Action Section */}
-      <SidebarFooter className="p-3 bg-bg-secondary-0 border-t border-slate-100">
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <span className="flex w-full items-center gap-3 rounded-xl p-2 text-left transition-all hover:bg-primary-0/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-200 justify-center group-data-[collapsible=icon]:p-0">
-              <Avatar className="h-8 w-8 shrink-0 border shadow-sm">
-                <AvatarImage src="/avatars/admin.jpg" alt="Super Admin" />
-                <AvatarFallback className="bg-slate-900 text-white text-xs font-bold">
-                  SA
-                </AvatarFallback>
-              </Avatar>
+      {/* ── Footer: User + Sign Out ── */}
+      <SidebarFooter
+        className="p-3 border-t"
+        style={{
+          backgroundColor: "var(--color-sidebar-bg)",
+          borderColor: "var(--color-sidebar-border)",
+        }}
+      >
+        {/* User info row */}
+        <div className="flex items-center gap-2.5 px-1 mb-2 min-w-0">
+          <Avatar className="h-8 w-8 shrink-0 border-2 border-blue-700">
+            <AvatarImage src="/avatars/admin.jpg" alt="Super Admin" />
+            <AvatarFallback
+              className="text-xs font-bold text-white"
+              style={{ backgroundColor: "var(--color-primary-0)" }}
+            >
+              SA
+            </AvatarFallback>
+          </Avatar>
 
-              {!isCollapsed && (
-                <>
-                  <div className="flex min-w-0 flex-1 flex-col">
-                    <span className="truncate text-sm font-semibold text-text-primary-0 leading-tight">
-                      Super Admin
-                    </span>
-                    <span className="truncate text-xs text-text-primary-0">
-                      admin@wachio.com
-                    </span>
-                  </div>
-                  <ChevronsUpDown className="h-4 w-4 shrink-0 text-text-primary-0" />
-                </>
-              )}
-            </span>
-          </DropdownMenuTrigger>
-
-          <DropdownMenuContent
-            side="top"
-            align="start"
-            className="w-56 rounded-xl p-1 shadow-lg bg-bg-primary-0"
-            sideOffset={12}
-          >
-            <div className="flex items-center gap-2.5 px-2.5 py-2">
-              <Avatar className="h-8 w-8 border border-slate-100">
-                <AvatarImage src="/avatars/admin.jpg" alt="Super Admin" />
-                <AvatarFallback className="bg-bg-primary-0 text-white text-xs font-bold">
-                  SA
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex flex-col min-w-0">
-                <span className="text-xs font-semibold text-text-primary-0 truncate">
-                  Super Admin
-                </span>
-                <span className="text-[11px] text-slate-400 truncate">
-                  admin@wachio.com
-                </span>
-              </div>
+          {!isCollapsed && (
+            <div className="flex min-w-0 flex-col">
+              <span
+                className="truncate text-sm font-semibold leading-tight"
+                style={{ color: "#F8FAFC" }}
+              >
+                Super Admin
+              </span>
+              <span
+                className="truncate text-[11px] leading-tight"
+                style={{ color: "var(--color-sidebar-text)" }}
+              >
+                Admin@platform.co...
+              </span>
             </div>
-            <DropdownMenuSeparator className="bg-bg-primary-0" />
+          )}
+        </div>
 
-            <DropdownMenuItem
-              className="gap-2.5 text-sm rounded-lg text-text-primary-0 focus:text-text-primary-0 focus:bg-bg-secondary-0 bg-bg-primary-0 cursor-pointer py-2"
-              onClick={() => navigate("/profile")}
-            >
-              <Settings className="h-4 w-4 text-slate-400" />
-              Profile
-            </DropdownMenuItem>
-
-            {/* <DropdownMenuSeparator className="bg-bg-primary-0/50" /> */}
-
-            <DropdownMenuItem
-              className="gap-2.5 text-sm rounded-lg text-red-600 focus:text-red-700 focus:bg-bg-secondary-0 cursor-pointer py-2 font-medium"
-              onClick={logoutHandler}
-            >
-              <LogOut className="h-4 w-4" />
-              Log out
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {/* Sign Out button */}
+        <button
+          onClick={logoutHandler}
+          className={[
+            "flex items-center justify-center gap-2 w-full rounded-lg py-2 text-sm font-semibold transition-all duration-150 hover:opacity-90 active:scale-95",
+            isCollapsed ? "px-2" : "px-3",
+          ].join(" ")}
+          style={{ backgroundColor: "var(--color-accent-red)", color: "#fff" }}
+        >
+          <LogOut className="h-4 w-4 shrink-0" strokeWidth={2} />
+          {!isCollapsed && <span>Sign Out</span>}
+        </button>
       </SidebarFooter>
     </Sidebar>
   );

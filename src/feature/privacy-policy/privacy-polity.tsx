@@ -1,4 +1,5 @@
-import SideContentPage from "@/shared/side-content";
+import SideContentPage from "@/shared/side-content-privacy-policy";
+
 
 
 

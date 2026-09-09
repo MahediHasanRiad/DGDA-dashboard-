@@ -1,23 +1,60 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-primary-0: #43E8C9;
-  --color-secondary-0: oklch(0.72 0.11 178);
+  /* ── Brand / Accent ── */
+  --color-primary-0: #3B82F6;          /* blue accent */
+  --color-primary-hover: #2563EB;
+  --color-accent-gold: #F59E0B;        /* gold / amber highlight (active filter & active pagination & active nav) */
+  --color-accent-gold-hover: #D97706;
+  --color-accent-green: #22C55E;       /* verified badge text / positive */
+  --color-accent-green-bg: rgba(34, 197, 94, 0.15);
+  --color-accent-green-border: rgba(34, 197, 94, 0.3);
+  --color-accent-red: #EF4444;         /* sign-out / reject / danger */
+  --color-accent-red-bg: rgba(239, 68, 68, 0.15);
+  --color-accent-red-border: rgba(239, 68, 68, 0.3);
+  --color-accent-gold-bg: rgba(245, 158, 11, 0.15);
+  --color-accent-gold-border: rgba(245, 158, 11, 0.3);
 
-  --color-text-primary-0: #F6FEFC;
+  /* ── Sidebar (dark navy) ── */
+  --color-sidebar-bg: #0B1728;         /* deep dark navy */
+  --color-sidebar-hover: #13243C;
+  --color-sidebar-active: #162B48;
+  --color-sidebar-border: #182C46;
+  --color-sidebar-text: #94A3B8;       /* light slate */
+  --color-sidebar-text-active: #F8FAFC;
 
-  --color-bg-primary-0: #02120F;
-  --color-bg-secondary-0: #455451;
+  /* ── Main content area (dark navy theme) ── */
+  --color-bg-primary-0: #0B1728;       /* deep dark navy page bg */
+  --color-bg-card: #102035;            /* dark card / panel bg */
+  --color-bg-card-hover: #142742;      /* card / table row hover */
+  --color-bg-header: #0B1728;          /* top header bar */
+  --color-bg-surface: #0E1B2E;         /* subtle nested surface / table header */
 
-  --font-primary: 'Libre Franklin', sans-serif;
+  /* ── Text ── */
+  --color-text-primary-0: #F8FAFC;     /* white / bright text */
+  --color-text-secondary: #CBD5E1;     /* light blue-gray muted text */
+  --color-text-muted: #64748B;         /* subtle slate muted text */
+
+  /* ── Borders ── */
+  --color-border-0: #1C3352;           /* primary border on dark */
+  --color-border-subtle: #162A43;      /* subtle table row divider */
+
+  /* ── Legacy aliases (keep for existing usage) ── */
+  --color-secondary-0: #13243C;
+  --color-bg-secondary-0: #0B1728;
+
+  /* ── Typography ── */
+  --font-primary: 'Inter', sans-serif;
 }
 
 @layer base {
   body {
     font-family: var(--font-primary);
+    background-color: var(--color-bg-primary-0);
+    color: var(--color-text-primary-0);
   }
 }
 
@@ -32,7 +69,6 @@
 @theme inline {
   --color-brand: var(--brand);
 }
-
 
 .pac-container {
   position: absolute;

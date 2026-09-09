@@ -1,7 +1,8 @@
 import { Route, Routes } from "react-router";
 import LoginPage from "./feature/auth/login.page";
 import Layout from "./feature/layout/layout.page";
-import HomePage from "./feature/home/home.page";
+import OverviewPage from "./feature/overview/overview.page";
+import UsersPage from "./feature/users/users.page";
 import PrivacyPolicyPage from "./feature/privacy-policy/privacy-polity";
 import TermsAndConditionPage from "./feature/privacy-policy/terms-and-condition";
 import CookiePage from "./feature/privacy-policy/cookie";
@@ -47,7 +48,8 @@ function App() {
 
       {/* <Route element={<ProtectedRoute />}> */}
         <Route element={<Layout />}>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<OverviewPage />} />
+          <Route path="/users" element={<UsersPage />} />
           <Route path="/profile" element={<ProfilePage />} />
 
 
