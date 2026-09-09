@@ -8,7 +8,9 @@ import TermsAndConditionPage from "./feature/privacy-policy/terms-and-condition"
 import CookiePage from "./feature/privacy-policy/cookie";
 import NewsPressPage from "./feature/news-press/news-press.page";
 import OfficesPage from "./feature/offices/offices.page";
+import DocumentsPage from "./feature/documents/documents.page";
 import ProfilePage from "./feature/profile/profile.page";
+import PartnersPage from "./feature/partner and sponsors/partners.page";
 
 
 
@@ -54,6 +56,8 @@ function App() {
           <Route path="/users" element={<UsersPage />} />
           <Route path="/news" element={<NewsPressPage />} />
           <Route path="/offices" element={<OfficesPage />} />
+          <Route path="/documents" element={<DocumentsPage />} />
+          <Route path="/partners" element={<PartnersPage />} />
           <Route path="/profile" element={<ProfilePage />} />
 
 

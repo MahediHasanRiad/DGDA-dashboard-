@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { MoreVertical, ChevronLeft, ChevronRight, PlusCircle, Edit3, Trash2 } from "lucide-react";
+import { MoreVertical, PlusCircle, Edit3, Trash2 } from "lucide-react";
+import { Pagination } from "@/shared/pagination";
 import type { NewsArticle, ArticleStatus } from "../news-press.data";
 
 // ── Types ──────────────────────────────────────────────────────────────────
@@ -252,68 +253,6 @@ function TableRowItem({
   );
 }
 
-function PaginationBar({
-  currentPage,
-  totalPages,
-  onPageChange,
-}: {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
-}) {
-  return (
-    <div className="flex items-center justify-center sm:justify-end gap-1.5 px-4 py-3 sm:px-5 sm:py-3.5">
-      <button
-        id="pagination-prev-btn"
-        onClick={() => onPageChange(Math.max(1, currentPage - 1))}
-        disabled={currentPage === 1}
-        className="flex h-7 w-7 items-center justify-center rounded-md transition-colors disabled:opacity-30"
-        style={{ color: "var(--color-text-muted)" }}
-      >
-        <ChevronLeft className="h-4 w-4" strokeWidth={2} />
-      </button>
-
-      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-        <button
-          key={page}
-          id={`pagination-page-${page}`}
-          onClick={() => onPageChange(page)}
-          className="flex h-7 w-7 items-center justify-center rounded-md text-xs font-semibold transition-all"
-          style={
-            currentPage === page
-              ? {
-                  backgroundColor: "var(--color-accent-gold)",
-                  color: "#0B1728",
-                }
-              : {
-                  backgroundColor: "transparent",
-                  color: "var(--color-text-secondary)",
-                }
-          }
-          onMouseEnter={(e) => {
-            if (currentPage !== page) e.currentTarget.style.backgroundColor = "var(--color-bg-card-hover)";
-          }}
-          onMouseLeave={(e) => {
-            if (currentPage !== page) e.currentTarget.style.backgroundColor = "transparent";
-          }}
-        >
-          {page}
-        </button>
-      ))}
-
-      <button
-        id="pagination-next-btn"
-        onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
-        disabled={currentPage === totalPages}
-        className="flex h-7 w-7 items-center justify-center rounded-md transition-colors disabled:opacity-30"
-        style={{ color: "var(--color-text-muted)" }}
-      >
-        <ChevronRight className="h-4 w-4" strokeWidth={2} />
-      </button>
-    </div>
-  );
-}
-
 // ── Main Table Component ───────────────────────────────────────────────────
 
 export function NewsTable({
@@ -380,13 +319,14 @@ export function NewsTable({
 
       {/* Pagination Footer */}
       <div
-        className="border-t"
+        className="px-4 py-3 sm:px-5 sm:py-3.5 border-t"
         style={{ borderColor: "var(--color-border-0)" }}
       >
-        <PaginationBar
+        <Pagination
           currentPage={currentPage}
           totalPages={TOTAL_PAGES}
           onPageChange={setCurrentPage}
+          align="end"
         />
       </div>
     </div>

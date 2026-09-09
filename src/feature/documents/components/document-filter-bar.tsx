@@ -20,12 +20,12 @@ export function DocumentFilterBar({
   return (
     <div className="flex flex-col gap-3.5 sm:flex-row sm:items-center sm:justify-between">
       {/* ── Left side: Category tabs ── */}
-      <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-        <span className="text-xs font-semibold text-slate-300 mr-1 shrink-0">
+      <div className="flex flex-col xs:flex-row xs:items-center gap-2 sm:gap-3 w-full sm:w-auto">
+        <span className="text-xs font-semibold text-slate-300 shrink-0">
           Status:
         </span>
         <div
-          className="flex flex-wrap items-center gap-1 p-1 rounded-xl border"
+          className="flex items-center gap-1 p-1 rounded-xl border max-w-full overflow-x-auto no-scrollbar"
           style={{
             backgroundColor: "var(--color-bg-card)",
             borderColor: "var(--color-border-0)",
@@ -39,7 +39,7 @@ export function DocumentFilterBar({
                 id={`doc-tab-${category.toLowerCase().replace(/[^a-z0-9]/g, "-")}`}
                 onClick={() => onCategoryChange(category)}
                 className={cn(
-                  "rounded-lg px-3 py-1.5 text-xs font-semibold transition-all duration-150 shrink-0",
+                  "rounded-lg px-3 py-1.5 text-xs font-semibold transition-all duration-150 shrink-0 whitespace-nowrap",
                   isActive ? "shadow-sm" : "hover:text-slate-200"
                 )}
                 style={

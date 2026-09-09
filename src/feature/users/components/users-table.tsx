@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { MoreVertical, Eye, CheckCircle, XCircle, ChevronLeft, ChevronRight } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { MoreVertical, Eye, CheckCircle, XCircle } from "lucide-react";
+import { Pagination } from "@/shared/pagination";
 import { UserDetailModal, type UserDetail } from "./user-detail-modal";
 import type { StatusFilter } from "./users-filter-bar";
 
@@ -277,67 +277,6 @@ function TableRow({
   );
 }
 
-function Pagination({
-  current,
-  total,
-  onChange,
-}: {
-  current: number;
-  total: number;
-  onChange: (page: number) => void;
-}) {
-  return (
-    <div className="flex items-center justify-center gap-1.5">
-      <button
-        onClick={() => onChange(Math.max(1, current - 1))}
-        disabled={current === 1}
-        className="flex h-7 w-7 items-center justify-center rounded-md transition-colors disabled:opacity-30"
-        style={{ color: "var(--color-text-muted)" }}
-      >
-        <ChevronLeft className="h-4 w-4" strokeWidth={2} />
-      </button>
-
-      {Array.from({ length: total }, (_, i) => i + 1).map((page) => (
-        <button
-          key={page}
-          onClick={() => onChange(page)}
-          className={cn(
-            "flex h-7 w-7 items-center justify-center rounded-md text-xs font-semibold transition-all"
-          )}
-          style={
-            current === page
-              ? {
-                  backgroundColor: "var(--color-accent-gold)",
-                  color: "#0B1728",
-                }
-              : {
-                  backgroundColor: "transparent",
-                  color: "var(--color-text-secondary)",
-                }
-          }
-          onMouseEnter={(e) => {
-            if (current !== page) e.currentTarget.style.backgroundColor = "var(--color-bg-card-hover)";
-          }}
-          onMouseLeave={(e) => {
-            if (current !== page) e.currentTarget.style.backgroundColor = "transparent";
-          }}
-        >
-          {page}
-        </button>
-      ))}
-
-      <button
-        onClick={() => onChange(Math.min(total, current + 1))}
-        disabled={current === total}
-        className="flex h-7 w-7 items-center justify-center rounded-md transition-colors disabled:opacity-30"
-        style={{ color: "var(--color-text-muted)" }}
-      >
-        <ChevronRight className="h-4 w-4" strokeWidth={2} />
-      </button>
-    </div>
-  );
-}
-
 // ── Exported table ─────────────────────────────────────────────────────────
 
 export function UsersTable({ activeFilter = "all" }: UsersTableProps) {
@@ -395,10 +334,15 @@ export function UsersTable({ activeFilter = "all" }: UsersTableProps) {
         </div>
 
         <div
-          className="border-t px-5 py-4 float-right"
+          className="border-t px-5 py-3.5"
           style={{ borderColor: "var(--color-border-0)" }}
         >
-          <Pagination current={currentPage} total={TOTAL_PAGES} onChange={setCurrentPage} />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={TOTAL_PAGES}
+            onPageChange={setCurrentPage}
+            align="end"
+          />
         </div>
       </div>
 

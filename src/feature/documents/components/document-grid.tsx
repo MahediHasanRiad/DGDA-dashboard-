@@ -1,41 +1,41 @@
 import { useState } from "react";
 import { Pagination } from "@/shared/pagination";
-import { OfficeCard } from "./office-card";
-import type { OfficeRecord } from "../offices.data";
+import { DocumentCard } from "./document-card";
+import type { DocumentRecord } from "../documents.data";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
-interface OfficesGridProps {
-  offices: OfficeRecord[];
-  onEdit: (office: OfficeRecord) => void;
-  onDelete: (office: OfficeRecord) => void;
-  onViewDetails?: (office: OfficeRecord) => void;
+interface DocumentGridProps {
+  documents: DocumentRecord[];
+  onEdit: (doc: DocumentRecord) => void;
+  onDelete: (doc: DocumentRecord) => void;
+  onPreview?: (doc: DocumentRecord) => void;
 }
 
 const TOTAL_PAGES = 5;
 
 // ── Grid Component ─────────────────────────────────────────────────────────
 
-export function OfficesGrid({
-  offices,
+export function DocumentGrid({
+  documents,
   onEdit,
   onDelete,
-  onViewDetails,
-}: OfficesGridProps) {
+  onPreview,
+}: DocumentGridProps) {
   const [currentPage, setCurrentPage] = useState(1);
 
   return (
     <div className="space-y-6">
-      {/* 3-Column Grid */}
-      {offices.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {offices.map((office) => (
-            <OfficeCard
-              key={office.id}
-              office={office}
+      {/* 3-Column Responsive Grid */}
+      {documents.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          {documents.map((doc) => (
+            <DocumentCard
+              key={doc.id}
+              document={doc}
               onEdit={onEdit}
               onDelete={onDelete}
-              onViewDetails={onViewDetails}
+              onPreview={onPreview}
             />
           ))}
         </div>
@@ -48,7 +48,7 @@ export function OfficesGrid({
           }}
         >
           <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
-            No customs offices found matching the selected filter criteria.
+            No customs publications or documents found for this category.
           </p>
         </div>
       )}
