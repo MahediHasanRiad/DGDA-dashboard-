@@ -11,6 +11,7 @@ import OfficesPage from "./feature/offices/offices.page";
 import DocumentsPage from "./feature/documents/documents.page";
 import ProfilePage from "./feature/profile/profile.page";
 import PartnersPage from "./feature/partner and sponsors/partners.page";
+import AIKnowledgeTrainerPage from "./feature/ai-knowledge-trainer/ai-knowledge-trainer.page";
 
 
 
@@ -58,6 +59,8 @@ function App() {
           <Route path="/offices" element={<OfficesPage />} />
           <Route path="/documents" element={<DocumentsPage />} />
           <Route path="/partners" element={<PartnersPage />} />
+          <Route path="/ai-trainer" element={<AIKnowledgeTrainerPage />} />
+          <Route path="/ai-knowledge-trainer" element={<AIKnowledgeTrainerPage />} />
           <Route path="/profile" element={<ProfilePage />} />
 
 
