@@ -395,7 +395,7 @@ export function UsersTable({ activeFilter = "all" }: UsersTableProps) {
         </div>
 
         <div
-          className="border-t px-5 py-4"
+          className="border-t px-5 py-4 float-right"
           style={{ borderColor: "var(--color-border-0)" }}
         >
           <Pagination current={currentPage} total={TOTAL_PAGES} onChange={setCurrentPage} />

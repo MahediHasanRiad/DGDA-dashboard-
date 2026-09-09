@@ -6,6 +6,7 @@ import UsersPage from "./feature/users/users.page";
 import PrivacyPolicyPage from "./feature/privacy-policy/privacy-polity";
 import TermsAndConditionPage from "./feature/privacy-policy/terms-and-condition";
 import CookiePage from "./feature/privacy-policy/cookie";
+import NewsPressPage from "./feature/news-press/news-press.page";
 import ProfilePage from "./feature/profile/profile.page";
 
 
@@ -50,6 +51,7 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<OverviewPage />} />
           <Route path="/users" element={<UsersPage />} />
+          <Route path="/news" element={<NewsPressPage />} />
           <Route path="/profile" element={<ProfilePage />} />
 
 
